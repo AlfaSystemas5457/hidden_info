@@ -3,7 +3,7 @@
     "summary": "Hiding information on receipts",
     "description": """Hiding information on receipts""",
     "author": "DGV",
-    # 'website': "https://www.yourcompany.com",
+    "website": "https://github.com/AlfaSystemas5457/hidden_info",
     "category": "Point of Sale",
     "version": "0.1",
     "depends": ["point_of_sale"],
