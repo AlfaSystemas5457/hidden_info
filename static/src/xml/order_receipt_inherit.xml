@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="hidden_info.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[@class='d-flex gap-2 pt-3']" position="replace">
+            <div class="d-flex gap-2 pt-3">
+                <!-- Left: Company Address -->
+                <div class="w-50 text-break text-start" style="font-size: 75%;">
+                    <div class="pos-config-name" t-out="order.config.name"/>
+                </div>
+
+                <!-- Right: Contact Info -->
+                <div class="w-50 text-break text-end" style="font-size: 75%;">
+                    <div>
+                        <div t-if="company.vat" t-out="vatText"/>
+                        <div t-if="company.phone">
+                            Tel: <t t-out="company.phone"/>
+                        </div>
+                        <div t-if="company.email" t-out="company.email"/>
+                        <div t-if="company.website" t-out="company.website"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>
