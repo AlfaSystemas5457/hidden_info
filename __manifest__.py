@@ -9,8 +9,7 @@
     "depends": ["point_of_sale"],
     "assets": {
         "point_of_sale._assets_pos": [
-            "hidden_info/static/src/xml/order_receipt_inherit.xml",
-            "hidden_info/static/src/xml/receipt_header_inherit.xml",
+            "hidden_info/static/src/*/**",
         ],
     },
 }

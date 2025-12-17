@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template"
+    xml:space="preserve">
+
+    <t t-name="hidden_info.ProductScreen"
+        t-inherit="point_of_sale.ProductScreen"
+        t-inherit-mode="extension"
+        owl="1">
+        <xpath expr="//div[@class='leftpane d-flex flex-column pb-2 border-end bg-view']"
+            position="replace">
+            <div t-att-class="{'flex-grow-1': ui.isSmall, 'd-none': ui.isSmall and pos.mobile_pane !== 'left'}"
+                class="leftpane d-flex flex-column pb-2 border-end bg-view d-sm-flex w-100 mw-100 mw-sm-50 mw-lg-25">
+                <OrderSummary />
+                <div class="pads px-2">
+                    <t t-if="!ui.isSmall">
+                        <div class="control-buttons d-flex justify-content-between gap-2 w-100 pt-2">
+                            <ControlButtons onClickMore.bind="displayAllControlPopup"/>
+                        </div>
+                    </t>
+                    <div class="subpads d-flex flex-column gap-2 pt-2">
+                        <Numpad t-if="!currentOrder?.isEmpty() and pos.getOrder()?.uiState.selected_orderline_uuid"
+                            class="'d-grid'"
+                            buttons="getNumpadButtons()"
+                            onClick.bind="onNumpadClick"/>
+                        <ActionpadWidget partner="currentOrder?.getPartner()"
+                            onClickMore.bind="displayAllControlPopup"
+                            actionName.translate="Pago"
+                            actionToTrigger="() => pos.pay()"
+                            showActionButton="!currentOrder?.isEmpty()"
+                            fastValidate="(paymentMethod) => this.fastValidate(paymentMethod)" />
+                    </div>
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@class='switchpane d-flex gap-2 p-2 border-top bg-view']"
+            position="replace">
+            <div class="switchpane d-flex d-sm-none gap-2 p-2 border-top bg-view">
+                <button t-if="!pos.scanning"
+                    class="btn-switchpane pay-button btn btn-lg flex-grow-1"
+                    t-attf-class="{{ currentOrder.isEmpty() ? 'btn-secondary' : 'btn-primary' }}"
+                    t-on-click="() => this.pos.pay()">
+                    <span class="d-block">Pagar</span>
+                    <span t-esc="total" />
+                </button>
+                <button class="btn-switchpane btn btn-secondary review-button flex-grow-1"
+                    t-on-click="switchPane">
+                    <span class="d-block">Carrito</span>
+                    <small>
+                        <t t-esc="items"/>
+ artículos
+                    </small>
+                </button>
+                <button t-if="pos.scanning"
+                    class="btn-switchpane btn btn-secondary btn-lg flex-grow-1"
+                    t-on-click="() => this.pos.scanning = false">
+                    <span class="d-block">Productos</span>
+                </button>
+            </div>
+        </xpath>
+    </t>
+
+</templates>
